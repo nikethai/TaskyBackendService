@@ -18,7 +18,7 @@ module.exports = {
         type: Sequelize.BOOLEAN
       },
       assignees: {
-        type: Sequelize.ARRAY(Sequelize.JSONB)
+        type: Sequelize.JSON
       },
       organizationId: {
         type: Sequelize.INTEGER

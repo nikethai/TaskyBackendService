@@ -14,8 +14,8 @@ module.exports = {
       logo: {
         type: Sequelize.STRING
       },
-      teams: {
-        type: Sequelize.ARRAY(Sequelize.STRING)
+      department:{
+        type: Sequelize.JSON
       },
       createdAt: {
         allowNull: false,
