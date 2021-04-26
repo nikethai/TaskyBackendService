@@ -869,6 +869,20 @@ console.log(event.headers);
     }
 })
 
+module.exports.hello = Sentry.AWSLambda.wrapHandler(async e => {
+    return {
+        statusCode: 200,
+            headers: {
+            'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify({
+            status: true,
+            message: 'Hello mofo!',
+
+        }),
+    };
+});
+
 
 ///update task completion
 module.exports.updateTask = Sentry.AWSLambda.wrapHandler(async event => {

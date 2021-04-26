@@ -10,5 +10,5 @@ services:
       LAMBDA_EXECUTOR: docker
       DOCKER_HOST: unix:///var/run/docker.sock
     volumes:
-      - "/private${TMPDIR}/localstack:/tmp/localstack"
+      - "${TEMPDIR:-/tmp/localstack}:/temp/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"

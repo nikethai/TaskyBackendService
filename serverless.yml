@@ -27,32 +27,15 @@ package:
 provider:
   name: aws
   runtime: nodejs12.x
-  apiGateway:
-    shouldStartNameWithService: true
 
 # you can overwrite defaults here
-  stage: ${opt:stage, 'development'}
-  region: us-east-1
-  profile: default
-
-# you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:ListBucket"
-#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:PutObject"
-#      Resource:
-#        Fn::Join:
-#          - ""
-#          - - "arn:aws:s3:::"
-#            - "Ref" : "ServerlessDeploymentBucket"
-#            - "/*"
+#  stage: ${opt:stage, 'development'}
+#  region: us-east-1
+#  profile: default
 
 custom:
   localstack:
+    debug: true
     stages:
       # list of stages for which the plugin should be enabled
       - local
@@ -60,15 +43,15 @@ custom:
     #autostart: true  # optional - start LocalStack in Docker on Serverless deploy
     endpoints:
       # This section is optional - can be used for customizing the target endpoints
-      # S3: http://localhost:4572
-      # DynamoDB: http://localhost:4570
-      # CloudFormation: http://localhost:4581
-      # Elasticsearch: http://localhost:4571
-      # ES: http://localhost:4578
-      # SNS: http://localhost:4575
-      # SQS: http://localhost:4576
       Lambda: http://localhost:4566
-      # Kinesis: http://localhost:4568
+      S3: http://localhost:4566
+      # DynamoDB: http://localhost:4570
+      CloudFormation: http://localhost:4566
+      Elasticsearch: http://localhost:4566
+      ES: http://localhost:4566
+      SNS: http://localhost:4566
+      SQS: http://localhost:4566
+      Kinesis: http://localhost:4566
     # lambda:
     #   # Enable this flag to improve performance
     #   mountCode: True
@@ -81,7 +64,6 @@ custom:
 #   NODE_ENV: production
 plugins:
   - serverless-localstack
-  - serverless-offline
 
 # you can add packaging information here
 #package:
@@ -99,6 +81,13 @@ functions:
       - http:
           path: login
           method: post
+          cors: true
+  hello:
+    handler: src/handler.hello
+    events:
+      - http:
+          path: hello
+          method: get
           cors: true
   getOrganizations:
     handler: src/handler.getOrganizations
